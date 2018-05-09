@@ -59,9 +59,10 @@ const Answer = props => {
 };
 
 const Numbers = props => {
+  const arrOfNumbers = [1,2,3,4,5,6,7,8,9];
   return (
     <div className="numbers">
-      <span>1</span>
+      {arrOfNumbers.map((n,i) => <span key={i}>{n}</span>)}
     </div>
   );
 };

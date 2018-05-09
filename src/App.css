@@ -26,6 +26,7 @@
   background: rgba(204, 204, 204, 0.842);
   padding: 6px;
   border-radius: 50%;
+  margin: 0 10px;
 }
 
 .selected {
