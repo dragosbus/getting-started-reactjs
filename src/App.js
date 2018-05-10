@@ -17,10 +17,12 @@ class Game extends Component {
     super(props);
     this.state = {
       selectedNumbers: [],
-      numberOfStars: Math.floor(Math.random() * 9) + 1
+      numberOfStars: Math.floor(Math.random() * 9) + 1,
+      isCorrect: null
     };
     this.selectedNumber = this.selectedNumber.bind(this);
     this.unselectNumber = this.unselectNumber.bind(this);
+    this.checkAnswer = this.checkAnswer.bind(this);
   }
 
   selectedNumber(clickedNumber) {
@@ -37,6 +39,12 @@ class Game extends Component {
     }));
   }
 
+  checkAnswer() {
+    this.setState(prevState => ({
+      isCorrect:prevState.numberOfStars === prevState.selectedNumbers.reduce((acc, n)=>acc+n,0)
+    }));
+  }
+
   render() {
     return (
       <div className="game">
@@ -44,7 +52,7 @@ class Game extends Component {
         <br/>
         <div className="row">
           <Stars numberOfStars={this.state.numberOfStars}/>
-          <Button selectedNumber={this.state.selectedNumbers}/>
+          <Button selectedNumber={this.state.selectedNumbers} checkAnswer={this.checkAnswer}/>
           <Answer selectedNumbers={this.state.selectedNumbers} unselectNumber={this.unselectNumber}/>
         </div>
         <Numbers selectedNumbers={this.state.selectedNumbers} selectNumber={this.selectedNumber} />
@@ -66,10 +74,10 @@ const Stars = props => {
 };
 
 const Button = props => {
+  
+
   return (
-    <div>
-      <button disabled={props.selectedNumber.length === 0}>=</button>
-    </div>
+    <button disabled={props.selectedNumber.length === 0}>=</button>
   );
 };
 
