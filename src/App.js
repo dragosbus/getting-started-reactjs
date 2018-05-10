@@ -13,6 +13,15 @@ class App extends Component {
 }
 
 class Game extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedNumbers: [2,4]
+    };
+  }
+
+
+
   render() {
     return (
       <div className="game">
@@ -21,7 +30,7 @@ class Game extends Component {
         <div className="row">
           <Stars />
           <Button />
-          <Answer />
+          <Answer selectedNumbers={this.state.selectedNumbers}/>
         </div>
         <Numbers />
       </div>
@@ -33,7 +42,7 @@ const Stars = props => {
   const nOfStars = Math.floor(Math.random() * 9) + 1;
   const stars = [];
   for (let i = 0; i < nOfStars; i++) {
-    stars.push(<FaStar />);
+    stars.push(<FaStar key={i}/>);
   }
   return (
     <div className="stars">
@@ -53,7 +62,11 @@ const Button = props => {
 const Answer = props => {
   return (
     <div className="answer">
-      ...
+      {props.selectedNumbers.map((number, i) => {
+        return (
+          <span key={i}>{number}</span>
+        );
+      })}
     </div>
   );
 };
