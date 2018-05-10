@@ -44,7 +44,7 @@ class Game extends Component {
         <br/>
         <div className="row">
           <Stars numberOfStars={this.state.numberOfStars}/>
-          <Button />
+          <Button selectedNumber={this.state.selectedNumbers}/>
           <Answer selectedNumbers={this.state.selectedNumbers} unselectNumber={this.unselectNumber}/>
         </div>
         <Numbers selectedNumbers={this.state.selectedNumbers} selectNumber={this.selectedNumber} />
@@ -68,7 +68,7 @@ const Stars = props => {
 const Button = props => {
   return (
     <div>
-      <button>=</button>
+      <button disabled={props.selectedNumber.length === 0}>=</button>
     </div>
   );
 };
