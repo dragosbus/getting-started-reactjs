@@ -16,11 +16,17 @@ class Game extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedNumbers: [2,4]
+      selectedNumbers: [],
+      numberOfStars: Math.floor(Math.random() * 9) + 1
     };
+    this.selectedNumber = this.selectedNumber.bind(this);
   }
 
-
+  selectedNumber(clickedNumber) {
+    this.setState(prevState => ({
+      selectedNumbers: prevState.selectedNumbers.concat(clickedNumber)
+    }));
+  }
 
   render() {
     return (
@@ -28,20 +34,19 @@ class Game extends Component {
         <h3>Play Nine</h3>
         <br/>
         <div className="row">
-          <Stars />
+          <Stars numberOfStars={this.state.numberOfStars}/>
           <Button />
           <Answer selectedNumbers={this.state.selectedNumbers}/>
         </div>
-        <Numbers />
+        <Numbers selectedNumbers={this.state.selectedNumbers} selectNumber={this.selectedNumber} />
       </div>
     );
   }
 }
 
 const Stars = props => {
-  const nOfStars = Math.floor(Math.random() * 9) + 1;
   const stars = [];
-  for (let i = 0; i < nOfStars; i++) {
+  for (let i = 0; i < props.numberOfStars; i++) {
     stars.push(<FaStar key={i}/>);
   }
   return (
@@ -72,10 +77,16 @@ const Answer = props => {
 };
 
 const Numbers = props => {
-  const arrOfNumbers = [1,2,3,4,5,6,7,8,9];
+  const arrOfNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const numberClassName = number => {
+    if (props.selectedNumbers.indexOf(number) >= 0) {
+      return 'selected';
+    }
+  };
+
   return (
     <div className="numbers">
-      {arrOfNumbers.map((n,i) => <span key={i}>{n}</span>)}
+      {arrOfNumbers.map((n, i) => <span className={numberClassName(n)} key={i} onClick={()=> props.selectNumber(n)}>{n}</span>)}
     </div>
   );
 };
