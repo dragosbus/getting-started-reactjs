@@ -20,13 +20,20 @@ class Game extends Component {
       numberOfStars: Math.floor(Math.random() * 9) + 1
     };
     this.selectedNumber = this.selectedNumber.bind(this);
+    this.unselectNumber = this.unselectNumber.bind(this);
   }
 
   selectedNumber(clickedNumber) {
     if (this.state.selectedNumbers.indexOf(clickedNumber) >= 0) return;
-    
+
     this.setState(prevState => ({
       selectedNumbers: prevState.selectedNumbers.concat(clickedNumber)
+    }));
+  }
+
+  unselectNumber(clickedNumber) {
+    this.setState(prevState => ({
+      selectedNumbers: prevState.selectedNumbers.filter(number=> number !== clickedNumber)
     }));
   }
 
@@ -38,7 +45,7 @@ class Game extends Component {
         <div className="row">
           <Stars numberOfStars={this.state.numberOfStars}/>
           <Button />
-          <Answer selectedNumbers={this.state.selectedNumbers}/>
+          <Answer selectedNumbers={this.state.selectedNumbers} unselectNumber={this.unselectNumber}/>
         </div>
         <Numbers selectedNumbers={this.state.selectedNumbers} selectNumber={this.selectedNumber} />
       </div>
@@ -71,7 +78,7 @@ const Answer = props => {
     <div className="answer">
       {props.selectedNumbers.map((number, i) => {
         return (
-          <span key={i}>{number}</span>
+          <span onClick={()=>props.unselectNumber(number)} key={i}>{number}</span>
         );
       })}
     </div>
