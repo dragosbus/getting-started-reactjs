@@ -22,14 +22,31 @@
   padding: 15px;
 }
 
-.numbers span {
+.numbers span,
+.answer span{
   background: rgba(204, 204, 204, 0.842);
   padding: 6px;
   border-radius: 50%;
   margin: 0 10px;
+  cursor: pointer;
 }
 
 .selected {
   background: rgb(46, 134, 50);
   color: #fff;
+}
+
+button {
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+
+.correct {
+  background: green;
+}
+
+.incorrect {
+  background: red;
 }
